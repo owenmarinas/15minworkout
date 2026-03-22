@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/bg_dark"
+    android:paddingHorizontal="48dp"
+    android:paddingVertical="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15-Minute Workout"
+        android:textSize="36sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginBottom="6dp" />
+
+    <TextView
+        android:id="@+id/tvTotalTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="36dp" />
+
+    <Button
+        android:id="@+id/btnStartWorkout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="▶  Start Workout"
+        android:textSize="22sp"
+        android:singleLine="true"
+        android:paddingHorizontal="48dp"
+        android:paddingVertical="14dp"
+        android:backgroundTint="@color/accent_green"
+        android:layout_marginBottom="16dp"
+        android:focusable="true" />
+
+    <Button
+        android:id="@+id/btnSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⚙  Settings"
+        android:textSize="18sp"
+        android:singleLine="true"
+        android:paddingHorizontal="36dp"
+        android:paddingVertical="12dp"
+        android:backgroundTint="@color/btn_secondary"
+        android:focusable="true" />
+
+</LinearLayout>

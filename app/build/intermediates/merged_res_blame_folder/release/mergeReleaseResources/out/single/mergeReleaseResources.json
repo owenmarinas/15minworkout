@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "com.workout.timer.app-release-31:/layout_activity_settings.xml.flat",
+        "source": "com.workout.timer.app-main-32:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "com.workout.timer.app-release-31:/layout_activity_main.xml.flat",
+        "source": "com.workout.timer.app-main-32:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.workout.timer.app-release-31:/layout_activity_workout.xml.flat",
+        "source": "com.workout.timer.app-main-32:/layout/activity_workout.xml"
+    },
+    {
+        "merged": "com.workout.timer.app-release-31:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.workout.timer.app-main-32:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.workout.timer.app-release-31:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.workout.timer.app-main-32:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.workout.timer.app-release-31:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.workout.timer.app-main-32:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.workout.timer.app-release-31:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.workout.timer.app-main-32:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.workout.timer.app-release-31:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.workout.timer.app-main-32:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.workout.timer.app-release-31:/drawable_tv_banner.xml.flat",
+        "source": "com.workout.timer.app-main-32:/drawable/tv_banner.xml"
+    },
+    {
+        "merged": "com.workout.timer.app-release-31:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.workout.timer.app-main-32:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.workout.timer.app-release-31:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.workout.timer.app-main-32:/mipmap-hdpi/ic_launcher.png"
+    }
+]

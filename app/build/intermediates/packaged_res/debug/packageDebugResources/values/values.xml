@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent_green">#FF4CAF50</color>
+    <color name="bg_dark">#FF121212</color>
+    <color name="btn_danger">#FFD32F2F</color>
+    <color name="btn_secondary">#FF424242</color>
+    <color name="rest_bg">#FF2B1A00</color>
+    <color name="rest_color">#FFFF9800</color>
+    <color name="text_secondary">#FFB0B0B0</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="work_bg">#FF0D2B0D</color>
+    <color name="work_color">#FF4CAF50</color>
+    <string name="app_name">15-Minute Workout</string>
+    <style name="Theme.WorkoutTimer" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/accent_green</item>
+        <item name="colorPrimaryVariant">@color/work_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+</resources>
