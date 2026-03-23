@@ -17,7 +17,6 @@ id btnCancelWorkout
 id btnContinue
 id btnDoAgain
 id btnDone
-id btnGetStarted
 id btnRepsMinus
 id btnRepsPlus
 id btnReset
@@ -52,7 +51,6 @@ id tvTotalTime
 id tvWarmupVal
 layout activity_main
 layout activity_settings
-layout activity_welcome
 layout activity_workout
 mipmap ic_launcher
 string app_name

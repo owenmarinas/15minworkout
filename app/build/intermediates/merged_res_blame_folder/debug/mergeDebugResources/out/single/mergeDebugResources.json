@@ -12,28 +12,12 @@
         "source": "com.workout.timer.app-main-33:/mipmap-hdpi/ic_launcher.png"
     },
     {
-        "merged": "com.workout.timer.app-debug-31:/layout_activity_welcome.xml.flat",
-        "source": "com.workout.timer.app-main-33:/layout/activity_welcome.xml"
+        "merged": "com.workout.timer.app-debug-31:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.workout.timer.app-main-33:/drawable/ic_launcher_foreground.xml"
     },
     {
         "merged": "com.workout.timer.app-debug-31:/layout_activity_main.xml.flat",
         "source": "com.workout.timer.app-main-33:/layout/activity_main.xml"
-    },
-    {
-        "merged": "com.workout.timer.app-debug-31:/layout_activity_workout.xml.flat",
-        "source": "com.workout.timer.app-main-33:/layout/activity_workout.xml"
-    },
-    {
-        "merged": "com.workout.timer.app-debug-31:/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "com.workout.timer.app-main-33:/mipmap-xxhdpi/ic_launcher.png"
-    },
-    {
-        "merged": "com.workout.timer.app-debug-31:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.workout.timer.app-main-33:/mipmap-anydpi-v26/ic_launcher.xml"
-    },
-    {
-        "merged": "com.workout.timer.app-debug-31:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.workout.timer.app-main-33:/drawable/ic_launcher_foreground.xml"
     },
     {
         "merged": "com.workout.timer.app-debug-31:/mipmap-xhdpi_ic_launcher.png.flat",
@@ -44,7 +28,19 @@
         "source": "com.workout.timer.app-main-33:/drawable/ic_launcher_background.xml"
     },
     {
+        "merged": "com.workout.timer.app-debug-31:/layout_activity_workout.xml.flat",
+        "source": "com.workout.timer.app-main-33:/layout/activity_workout.xml"
+    },
+    {
         "merged": "com.workout.timer.app-debug-31:/mipmap-mdpi_ic_launcher.png.flat",
         "source": "com.workout.timer.app-main-33:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.workout.timer.app-debug-31:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.workout.timer.app-main-33:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.workout.timer.app-debug-31:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.workout.timer.app-main-33:/mipmap-anydpi-v26/ic_launcher.xml"
     }
 ]

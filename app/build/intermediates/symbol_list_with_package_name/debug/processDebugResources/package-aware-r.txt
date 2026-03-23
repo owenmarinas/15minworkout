@@ -3189,7 +3189,6 @@ id btnCancelWorkout
 id btnContinue
 id btnDoAgain
 id btnDone
-id btnGetStarted
 id btnRepsMinus
 id btnRepsPlus
 id btnReset
@@ -3736,7 +3735,6 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
 layout activity_settings
-layout activity_welcome
 layout activity_workout
 layout custom_dialog
 layout design_bottom_navigation_item

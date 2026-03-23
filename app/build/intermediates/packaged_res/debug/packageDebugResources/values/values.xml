@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="accent_green">#FF4CAF50</color>
+    <color name="accent_green">@color/work_color</color>
     <color name="bg_dark">#FF121212</color>
     <color name="btn_danger">#FFD32F2F</color>
     <color name="btn_secondary">#FF424242</color>
