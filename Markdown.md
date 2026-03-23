@@ -104,3 +104,7 @@ All settings adjustable in the Settings screen. Save defaults as classic 7-min v
 - No video playback (pure timer + voice).
 - No Google Fit / health integration.
 - Keep APK size small (<10MB ideal).
+------------------
+next change for ver 1.1
+add multiple profiles, so in the settings we should add an add/edit/delete buttos to modify profiles.
+
