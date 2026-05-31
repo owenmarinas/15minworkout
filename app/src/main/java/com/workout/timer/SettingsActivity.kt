@@ -1,7 +1,9 @@
 package com.workout.timer
 
 import android.os.Bundle
+import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 
@@ -9,6 +11,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private lateinit var prefs: Prefs
 
+    private lateinit var spinnerProfile: Spinner
     private lateinit var tvRepsVal: TextView
     private lateinit var sbActive: SeekBar
     private lateinit var sbRest: SeekBar
@@ -23,12 +26,14 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var tvWarmupVal: TextView
 
     private var reps = 12
+    private var pauseSpinnerListener = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         prefs = Prefs(this)
 
+        spinnerProfile = findViewById(R.id.spinnerProfile)
         tvRepsVal    = findViewById(R.id.tvRepsVal)
         sbActive     = findViewById(R.id.sbActive)
         sbRest       = findViewById(R.id.sbRest)
@@ -42,6 +47,8 @@ class SettingsActivity : AppCompatActivity() {
         sbWarmup     = findViewById(R.id.sbWarmup)
         tvWarmupVal  = findViewById(R.id.tvWarmupVal)
 
+        setupProfileSpinner()
+
         // Reps +/- buttons
         reps = prefs.reps
         tvRepsVal.text = "$reps"
@@ -52,7 +59,6 @@ class SettingsActivity : AppCompatActivity() {
             if (reps < 30) { reps++; tvRepsVal.text = "$reps"; updateTotal() }
         }
 
-        // Active time: 10–180s, seekbar offset by 10
         sbActive.max = 170
         sbActive.progress = prefs.activeSeconds - 10
         tvActiveVal.text = formatSec(prefs.activeSeconds)
@@ -61,7 +67,6 @@ class SettingsActivity : AppCompatActivity() {
             updateTotal()
         })
 
-        // Rest time: 5–180s, seekbar offset by 5
         sbRest.max = 175
         sbRest.progress = prefs.restSeconds - 5
         tvRestVal.text = formatSec(prefs.restSeconds)
@@ -74,9 +79,8 @@ class SettingsActivity : AppCompatActivity() {
         swRest.isChecked       = prefs.announceRest
         swMilestones.isChecked = prefs.announceMilestones
 
-        // Warmup: 10–59s, offset by 10
         swWarmup.isChecked = prefs.warmupEnabled
-        sbWarmup.max = 49  // 59 - 10
+        sbWarmup.max = 49
         sbWarmup.progress = prefs.warmupSeconds - 10
         tvWarmupVal.text = "${prefs.warmupSeconds}s"
         sbWarmup.isEnabled = prefs.warmupEnabled
@@ -92,7 +96,133 @@ class SettingsActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btnSave).setOnClickListener { save() }
         findViewById<Button>(R.id.btnReset).setOnClickListener { resetDefaults() }
+
+        // Profile management buttons
+        findViewById<Button>(R.id.btnProfileAdd).setOnClickListener { promptAddProfile() }
+        findViewById<Button>(R.id.btnProfileRename).setOnClickListener { promptRenameProfile() }
+        findViewById<Button>(R.id.btnProfileDelete).setOnClickListener { confirmDeleteProfile() }
     }
+
+    // ── Profile spinner ──────────────────────────────────────────────────────
+
+    private fun setupProfileSpinner() {
+        val names = prefs.profileNames
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, names)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        pauseSpinnerListener = true
+        spinnerProfile.adapter = adapter
+        val idx = names.indexOf(prefs.activeProfile).coerceAtLeast(0)
+        spinnerProfile.setSelection(idx)
+        pauseSpinnerListener = false
+        spinnerProfile.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+                if (pauseSpinnerListener) return
+                val selected = names[pos]
+                if (selected != prefs.activeProfile) {
+                    prefs.activeProfile = selected
+                    loadSettingsFromPrefs()
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+    }
+
+    private fun refreshProfileSpinner() {
+        val names = prefs.profileNames
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, names)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        pauseSpinnerListener = true
+        spinnerProfile.adapter = adapter
+        val idx = names.indexOf(prefs.activeProfile).coerceAtLeast(0)
+        spinnerProfile.setSelection(idx)
+        pauseSpinnerListener = false
+    }
+
+    private fun loadSettingsFromPrefs() {
+        reps = prefs.reps
+        tvRepsVal.text = "$reps"
+        sbActive.progress = prefs.activeSeconds - 10
+        tvActiveVal.text = formatSec(prefs.activeSeconds)
+        sbRest.progress = prefs.restSeconds - 5
+        tvRestVal.text = formatSec(prefs.restSeconds)
+        swStart.isChecked = prefs.announceStart
+        swRest.isChecked = prefs.announceRest
+        swMilestones.isChecked = prefs.announceMilestones
+        swWarmup.isChecked = prefs.warmupEnabled
+        sbWarmup.progress = prefs.warmupSeconds - 10
+        sbWarmup.isEnabled = prefs.warmupEnabled
+        tvWarmupVal.text = if (prefs.warmupEnabled) "${prefs.warmupSeconds}s" else "off"
+        updateTotal()
+    }
+
+    // ── Profile CRUD dialogs ─────────────────────────────────────────────────
+
+    private fun promptAddProfile() {
+        val input = EditText(this).apply { hint = "Profile name" }
+        AlertDialog.Builder(this)
+            .setTitle("Add Profile")
+            .setView(input)
+            .setPositiveButton("Add") { _, _ ->
+                val name = input.text.toString().trim()
+                if (name.isBlank()) {
+                    Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+                if (prefs.profileNames.contains(name)) {
+                    Toast.makeText(this, "Profile already exists", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+                prefs.createProfile(name)
+                prefs.activeProfile = name
+                refreshProfileSpinner()
+                loadSettingsFromPrefs()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun promptRenameProfile() {
+        val current = prefs.activeProfile
+        val input = EditText(this).apply { setText(current) }
+        AlertDialog.Builder(this)
+            .setTitle("Rename Profile")
+            .setView(input)
+            .setPositiveButton("Rename") { _, _ ->
+                val name = input.text.toString().trim()
+                if (name.isBlank()) {
+                    Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+                if (name != current && prefs.profileNames.contains(name)) {
+                    Toast.makeText(this, "Profile already exists", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+                prefs.renameProfile(current, name)
+                refreshProfileSpinner()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun confirmDeleteProfile() {
+        val current = prefs.activeProfile
+        if (prefs.profileNames.size <= 1) {
+            Toast.makeText(this, "Cannot delete the last profile", Toast.LENGTH_SHORT).show()
+            return
+        }
+        AlertDialog.Builder(this)
+            .setTitle("Delete Profile")
+            .setMessage("Delete \"$current\"? This cannot be undone.")
+            .setPositiveButton("Delete") { _, _ ->
+                prefs.deleteProfile(current)
+                refreshProfileSpinner()
+                loadSettingsFromPrefs()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    // ── Workout settings helpers ─────────────────────────────────────────────
 
     private fun updateTotal() {
         val active = sbActive.progress + 10
@@ -118,16 +248,16 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun resetDefaults() {
         reps = 12
-        tvRepsVal.text   = "12"
-        sbActive.progress = 20   // 30 - 10
-        sbRest.progress   = 5    // 10 - 5
+        tvRepsVal.text    = "12"
+        sbActive.progress = 20
+        sbRest.progress   = 5
         tvActiveVal.text  = formatSec(30)
         tvRestVal.text    = formatSec(10)
         swStart.isChecked      = true
         swRest.isChecked       = true
         swMilestones.isChecked = false
         swWarmup.isChecked     = true
-        sbWarmup.progress      = 0  // 10s
+        sbWarmup.progress      = 0
         sbWarmup.isEnabled     = true
         tvWarmupVal.text       = formatSec(10)
         updateTotal()
@@ -139,7 +269,6 @@ class SettingsActivity : AppCompatActivity() {
         override fun onStopTrackingTouch(sb: SeekBar) {}
     }
 
-    /** Show seconds under 60 as "45s", at 60+ as "1m", "1m 30s", etc. */
     private fun formatSec(s: Int): String {
         if (s < 60) return "${s}s"
         val m = s / 60

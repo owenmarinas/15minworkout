@@ -8,6 +8,7 @@
 - **Min SDK**: 24 (Android 7.0)
 - **Target SDK**: 34
 - **Build tool**: Gradle 8.9 + AGP 8.7.0
+- **Current version**: 1.1 (versionCode 2)
 
 ## Repository Structure
 ```
@@ -48,7 +49,15 @@
 - **No external dependencies** beyond AndroidX core, AppCompat, Material, ConstraintLayout.
 - **No network calls** — fully offline.
 - **State lives in `WorkoutActivity`** as private vars. No persistence of workout state across process death.
-- **Settings persisted** via `Prefs.kt` (SharedPreferences key `"workout_prefs"`).
+- **Settings persisted** via `Prefs.kt`. Master prefs in `"workout_master"` (profile list + active profile name); per-profile settings in `"profile_<name>"` SharedPreferences files.
+
+## Profiles (v1.1)
+- Multiple named profiles supported; each profile has its own copy of all workout settings.
+- `Prefs.profileNames` — list of profile names (stored as JSON in `workout_master`).
+- `Prefs.activeProfile` — name of currently selected profile.
+- CRUD: `createProfile(name)`, `renameProfile(old, new)`, `deleteProfile(name)`.
+- Profile spinner + Add/Rename/Delete buttons appear in the Settings screen right column.
+- Cannot delete the last profile.
 
 ## Data Model — `Prefs.kt`
 All fields have defaults matching the classic 7-min workout baseline.

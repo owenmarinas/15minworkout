@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         val min = total / 60
         val sec = total % 60
         val label = if (sec == 0) "${min}m" else "${min}m ${sec}s"
-        findViewById<TextView>(R.id.tvTotalTime).text = "15-Min Workout  •  $label total"
+        val profile = prefs.activeProfile
+        val profilePart = if (profile != "Default") "  •  $profile" else ""
+        findViewById<TextView>(R.id.tvTotalTime).text = "15-Min Workout$profilePart  •  $label total"
     }
 }

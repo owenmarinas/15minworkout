@@ -184,12 +184,64 @@
         android:background="@color/btn_secondary"
         android:layout_marginEnd="16dp" />
 
-    <!-- RIGHT COLUMN: voice toggles + buttons -->
+    <!-- RIGHT COLUMN: profiles + voice toggles + buttons -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
+
+        <!-- Profile section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:textSize="13sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <Spinner
+            android:id="@+id/spinnerProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+            <Button
+                android:id="@+id/btnProfileAdd"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:text="Add"
+                android:textSize="11sp"
+                android:padding="0dp"
+                android:backgroundTint="@color/btn_secondary"
+                android:layout_marginEnd="4dp" />
+            <Button
+                android:id="@+id/btnProfileRename"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:text="Rename"
+                android:textSize="11sp"
+                android:padding="0dp"
+                android:backgroundTint="@color/btn_secondary"
+                android:layout_marginEnd="4dp" />
+            <Button
+                android:id="@+id/btnProfileDelete"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:text="Delete"
+                android:textSize="11sp"
+                android:padding="0dp"
+                android:backgroundTint="#FF5252" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
